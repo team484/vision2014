@@ -1,0 +1,64 @@
+<head><version>2.59.2</version></head>
+<Axis_Internet_Camera>
+  <auto_back_light>TRUE</auto_back_light>
+  <auto_exposure>FALSE</auto_exposure>
+  <auto_white_balance>TRUE</auto_white_balance>
+  <brightness_value>50</brightness_value>
+  <color_level_value>50</color_level_value>
+  <compression_index>3</compression_index>
+  <contrast_value>50</contrast_value>
+  <exposure_value>50</exposure_value>
+  <ip_address>10.4.84.11</ip_address>
+  <is_active>TRUE</is_active>
+  <password>FRC</password>
+  <port>80</port>
+  <resolution>2</resolution>
+  <sharpness_value>50</sharpness_value>
+  <username>FRC</username>
+</Axis_Internet_Camera>
+<RGB_Filter>
+  <channel>1</channel>
+  <hue_value>82</hue_value>
+  <hysteresis>0</hysteresis>
+  <min_value>63</min_value>
+  <result_type>1</result_type>
+</RGB_Filter>
+<Blob_Size>
+  <limit>1</limit>
+  <mask>FALSE</mask>
+  <max_area>0</max_area>
+  <min_area>0</min_area>
+  <threshold>83</threshold>
+  <treat_as_color_image>FALSE</treat_as_color_image>
+</Blob_Size>
+<Fill>
+  <check_border>FALSE</check_border>
+  <fill_with_average_color>TRUE</fill_with_average_color>
+  <four_pixel_connectivity>TRUE</four_pixel_connectivity>
+  <size>1000</size>
+</Fill>
+<Canny>
+  <high_threshold>77</high_threshold>
+  <low_threshold>0</low_threshold>
+  <theta>1.0</theta>
+</Canny>
+<Circles>
+  <center_color_index>6</center_color_index>
+  <circle_color_index>5</circle_color_index>
+  <fill_circles>TRUE</fill_circles>
+  <isolation>0</isolation>
+  <isolation_scope>1</isolation_scope>
+  <max_radius>105</max_radius>
+  <min_radius>35</min_radius>
+  <overlay_image>Current</overlay_image>
+  <radius_color_index>3</radius_color_index>
+  <solidity_index>4</solidity_index>
+  <statistics_image>Current</statistics_image>
+  <thickness>2</thickness>
+  <threshold>0.600000</threshold>
+</Circles>
+<VBScript_Program>
+  <script>SetVariable "Distance", CInt(5)</script>
+  <source_mode>gui</source_mode>
+  <tab_size_index>1</tab_size_index>
+</VBScript_Program>

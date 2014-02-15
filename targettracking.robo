@@ -1,0 +1,246 @@
+<head><version>2.59.2</version></head>
+<Axis_Internet_Camera>
+  <auto_back_light>TRUE</auto_back_light>
+  <auto_exposure>FALSE</auto_exposure>
+  <auto_white_balance>TRUE</auto_white_balance>
+  <brightness_value>50</brightness_value>
+  <color_level_value>50</color_level_value>
+  <compression_index>3</compression_index>
+  <contrast_value>50</contrast_value>
+  <exposure_value>50</exposure_value>
+  <ip_address>10.4.84.11</ip_address>
+  <is_active>TRUE</is_active>
+  <password>FRC</password>
+  <port>80</port>
+  <resolution>2</resolution>
+  <sharpness_value>100</sharpness_value>
+  <username>FRC</username>
+</Axis_Internet_Camera>
+<Fisheye_Transform>
+  <center_x>0.5</center_x>
+  <center_y>0.5</center_y>
+  <inner_fov>17</inner_fov>
+  <maintain_fov_aspect>TRUE</maintain_fov_aspect>
+  <maintain_zoom_aspect>TRUE</maintain_zoom_aspect>
+  <outer_fov>17</outer_fov>
+  <radius>87</radius>
+  <sample_mode>1</sample_mode>
+  <scale_x>1</scale_x>
+  <scale_y>1.0</scale_y>
+  <x_trans>0.0</x_trans>
+  <x_zoom>1.0</x_zoom>
+  <y_trans>0.0</y_trans>
+  <y_zoom>1.0</y_zoom>
+</Fisheye_Transform>
+<Marker>
+  <include_graphics>0</include_graphics>
+  <name>Fisheye - corrected</name>
+  <revert_to>Current</revert_to>
+</Marker>
+<Bilateral>
+  <filter_size>2</filter_size>
+  <similarity_threshold>228</similarity_threshold>
+</Bilateral>
+<RGB_Filter>
+  <channel>16</channel>
+  <hue_value>65</hue_value>
+  <hysteresis>56</hysteresis>
+  <min_value>227</min_value>
+  <result_type>1</result_type>
+</RGB_Filter>
+<Blob_Size>
+  <limit>2</limit>
+  <mask>FALSE</mask>
+  <max_area>0</max_area>
+  <min_area>67</min_area>
+  <threshold>0</threshold>
+  <treat_as_color_image>FALSE</treat_as_color_image>
+</Blob_Size>
+<Convex_Hull/>
+<Blob_Filter>
+  <create_blob_array_variable>TRUE</create_blob_array_variable>
+  <filters>
+    <tab>
+      <filter>
+        <count_threshold>0</count_threshold>
+        <create_array>0</create_array>
+        <filter_id>36</filter_id>
+        <invert_count>0</invert_count>
+        <invert_threshold>0</invert_threshold>
+        <weight_threshold>0.6</weight_threshold>
+      </filter>
+      <filter:2>
+        <count_threshold>0</count_threshold>
+        <create_array>0</create_array>
+        <filter_id>42</filter_id>
+        <invert_count>0</invert_count>
+        <invert_threshold>0</invert_threshold>
+        <weight_threshold>0.4</weight_threshold>
+      </filter:2>
+      <filter:3>
+        <count_threshold>0</count_threshold>
+        <create_array>0</create_array>
+        <filter_id>66</filter_id>
+        <invert_count>0</invert_count>
+        <invert_threshold>0</invert_threshold>
+        <weight_threshold>0.45</weight_threshold>
+      </filter:3>
+      <filter:4>
+        <count_threshold>2</count_threshold>
+        <create_array>0</create_array>
+        <filter_id>21</filter_id>
+        <invert_count>0</invert_count>
+        <invert_threshold>0</invert_threshold>
+        <weight_threshold>0</weight_threshold>
+      </filter:4>
+    </tab>
+    <tab:2/>
+    <tab:3/>
+    <tab:4>
+      <filter>
+        <count_threshold>0</count_threshold>
+        <create_array>0</create_array>
+        <filter_id>25</filter_id>
+        <invert_count>0</invert_count>
+        <invert_threshold>0</invert_threshold>
+        <object_coord>c100,100</object_coord>
+        <weight_threshold>0</weight_threshold>
+      </filter>
+    </tab:4>
+    <tab:5/>
+    <tab:6/>
+  </filters>
+  <largest_is_background>FALSE</largest_is_background>
+  <show_weights>FALSE</show_weights>
+  <sort_array_on_x>FALSE</sort_array_on_x>
+  <sort_array_on_y>TRUE</sort_array_on_y>
+</Blob_Filter>
+<Blob_Replace>
+  <color_index>3</color_index>
+  <fill_shape>TRUE</fill_shape>
+  <order_array_on_x>FALSE</order_array_on_x>
+  <order_array_on_y>TRUE</order_array_on_y>
+  <overlay_image>Fisheye - corrected</overlay_image>
+  <shape_index>12</shape_index>
+  <thickness>1</thickness>
+</Blob_Replace>
+<VBScript_Program>
+  <script>		targetPixelHeight = 0
+
+    targetSamples = 0
+
+
+
+    ' calibrated for an Axis camera
+
+    imageHeight = GetVariable("IMAGE_HEIGHT")
+
+  	cameraFieldOfView = 62
+
+	  targetHeight = 18.0
+
+
+
+			' based on these two side lines get the center line height
+
+		  ' the center line is used since we want to aim to the center
+
+  		' of the target. This also removes any perspective distortion
+
+	  	' where the right or left size may be a couple inches closer
+
+		  ' or futher away from the camera
+
+  		targetPixelHeight = targetPixelHeight + ((lefty - leftyy) + (righty - rightyy)) / 2
+
+
+
+			targetSamples = targetSamples + 1
+
+		imageHeight = 240
+
+		list = GetArrayVariable("CIRCLES")
+
+		if isArray(list) then
+
+  	if ubound(list) &gt; 0 then
+
+		targetPixelHeight = list(2)
+
+		targetHeight = 24
+
+		cameraFieldOfView = 62
+
+
+
+    ' we can use a known distance to determine FOV if we don't know it
+
+	  ' measuredDistance = 10.0*12.0
+
+ 	  ' write "Calculated FOV " &amp; (((atan((((targetHeight*imageHeight)/targetPixelHeight)/2)/measuredDistance)*2.0)*180.0)/3.14159) &amp; vbCRLF
+
+
+
+    ' determine distance in inches
+
+    totalDistance = (((targetHeight*imageHeight)/targetPixelHeight)/2)/tan(((cameraFieldOfView*3.14159)/180.0)/2.0)
+
+	
+
+		SetVariable "Distance", CInt((totalDistance*100))/100
+
+end if
+
+end if
+
+</script>
+  <source_mode>gui</source_mode>
+  <tab_size_index>1</tab_size_index>
+</VBScript_Program>
+<Display_Variables>
+  <border_color>red</border_color>
+  <dim_background>TRUE</dim_background>
+  <display_as_annotation>FALSE</display_as_annotation>
+  <display_value_only>FALSE</display_value_only>
+  <font_color>white</font_color>
+  <font_size>Tiny (6pt)</font_size>
+  <northwest>BLOB_COUNT
+BOUNDING_COORDINATES
+</northwest>
+</Display_Variables>
+<NetworkTables>
+  <delay>400</delay>
+  <filter_type_index>0</filter_type_index>
+  <hostname>10.4.84.2</hostname>
+  <port>1735</port>
+  <prefix>/SmartDashboard/</prefix>
+  <variables_to_send>BLOB_COUNT
+BLOBS
+COG_X
+COG_Y
+Distance
+IMAGE_HEIGHT
+IMAGE_WIDTH
+MEQ_COORDINATES</variables_to_send>
+  <variable_type_index>3</variable_type_index>
+</NetworkTables>
+<function>
+<function_name>Tab2</function_name>
+<function_always_run>0</function_always_run>
+<Axis_Internet_Camera>
+  <auto_back_light>TRUE</auto_back_light>
+  <auto_exposure>FALSE</auto_exposure>
+  <auto_white_balance>TRUE</auto_white_balance>
+  <brightness_value>50</brightness_value>
+  <color_level_value>50</color_level_value>
+  <compression_index>3</compression_index>
+  <contrast_value>50</contrast_value>
+  <exposure_value>50</exposure_value>
+  <ip_address>10.4.84.11</ip_address>
+  <is_active>FALSE</is_active>
+  <password>FRC</password>
+  <port>80</port>
+  <sharpness_value>50</sharpness_value>
+  <username>FRC</username>
+</Axis_Internet_Camera>
+</function>
